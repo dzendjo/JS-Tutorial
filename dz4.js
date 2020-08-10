@@ -15,3 +15,54 @@
 'use strict';
 
 // Код возьмите из предыдущего домашнего задания
+
+const personalMovieDB = {
+    count: 0,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false,
+
+    toggleVisibleMyDB: function() {
+        this.privat = !this.privat;
+    },
+
+    showMyDB: function() {
+        if (!this.privat) {
+            let properties = [];
+            let key;
+            for (key in this) {
+                if (typeof(this[key]) != 'function') {
+                    properties.push(`${key}: ${this[key]}`);
+                }
+            }
+            console.log(properties.join('; '));
+        } else {
+            console.log('This is privat DB!');
+        }
+    },
+    
+    writeYourGenres: function() {
+        let i = 1;
+        do {
+            const genre = prompt(`Your favorite genre with number #${i}`);
+            if (genre == null || genre == '') {
+                console.log('Not correct genre :(');
+            } else {
+                this.genres.push(genre);
+                i++;
+            }
+        } while (this.genres.length < 3);
+        this.genres.forEach(function(value, index) {
+           console.log(`Любимый жанр #${index+1} - это ${value}`); 
+        });
+    }
+};
+
+
+const db = Object.create(personalMovieDB);
+db.showMyDB();
+db.writeYourGenres();
+db.showMyDB();
+db.toggleVisibleMyDB();
+db.showMyDB();
